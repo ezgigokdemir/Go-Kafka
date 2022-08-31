@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"strconv"
 
@@ -10,8 +11,15 @@ import (
 
 func main() {
 
+	var message string
+	var count int
+	flag.StringVar(&message, "message", "", "write your message")
+	flag.IntVar(&count, "count", 0, "write your count")
+	flag.Parse()
+
 	ctx := context.Background()
 
+	go producer(ctx, message, count)
 	consumer(ctx)
 }
 
